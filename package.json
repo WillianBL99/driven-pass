@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/WillianBL99/typescript-api-tamplate#readme",
   "dependencies": {
+    "@prisma/client": "^4.0.0",
     "bcrypt": "^5.0.1",
     "chalk": "^5.0.1",
     "cors": "^2.8.5",
