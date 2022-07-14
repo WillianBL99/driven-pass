@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  email       String        @unique
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
   password    String
-  createdAt   DateTime      @db.Timestamptz(6)
-  credentials Credentials[]
-  SecureNotes SecureNotes[]
-  Cards       Cards[]
+  createdAt   DateTime     @default(now()) @db.Timestamptz(6)
+  credentials Credential[]
+  SecureNotes SecureNote[]
+  Cards       Card[]
   WiFi        WiFi[]
 }
 
-model Credentials {
+model Credential {
   id       Int    @id @default(autoincrement())
   label    String @unique
   url      String
@@ -28,7 +28,7 @@ model Credentials {
   user     User   @relation(fields: [userId], references: [id])
 }
 
-model SecureNotes {
+model SecureNote {
   id       Int    @id @default(autoincrement())
   title    String @db.VarChar(50)
   bodyNote String @db.VarChar(1000)
@@ -42,7 +42,7 @@ enum CardTypes {
   both
 }
 
-model Cards {
+model Card {
   id             Int       @id @default(autoincrement())
   number         String
   holderName     String

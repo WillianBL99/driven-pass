@@ -1,6 +1,6 @@
 import bcrypt, { compareSync } from "bcrypt";
 import Cryptr from "cryptr";
-
+import "../config/setup.js";
 const cryptr = new Cryptr(process.env.SECRET_CRYPTR ?? "SECRET");
 
 export const internalCryptr = {
