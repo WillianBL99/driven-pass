@@ -4,7 +4,9 @@ import * as credentialsServer from "../services/credentialsServer.js";
 
 export async function create(req: Request, res: Response) {
   const partialCredentialData: CredentialSchema = req.body;
-  credentialsServer.create({ ...partialCredentialData });
+  const { userId } = res.locals;
+
+  await credentialsServer.create({ ...partialCredentialData, userId });
 
   res.sendStatus(201);
 }

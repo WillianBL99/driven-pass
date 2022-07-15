@@ -1,9 +1,9 @@
-import { User } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import jwt, { Algorithm, SignOptions } from "jsonwebtoken";
 import AppError from "../config/error.js";
 import "../config/setup.js";
 import * as userRepository from "../repositories/userRepository.js";
 import { internalBcrypt } from "../utils/encrypt.js";
+import { env } from "../utils/env.js";
 
 const SIGN_IN_UNAUTHORIZED = new AppError(
   "Sign-in unauthorized",
@@ -43,14 +43,18 @@ export async function signIn(data: SignIn) {
     throw SIGN_IN_UNAUTHORIZED;
   }
 
-  return jwtTokenGenerate(user, email);
+  return jwtTokenGenerate(user.id);
 }
 
-function jwtTokenGenerate(user: User, email: string) {
-  const private_key = process.env.PRIVATE_KEY ?? "";
-  const token = jwt.sign({ user_id: user.id, email }, private_key, {
-    expiresIn: "1d",
-  });
+function jwtTokenGenerate(id: number) {
+  const data = { id };
+  const subject = id.toString();
+  const secretKey = env.JWT_SECRET;
+  const expiresIn = env.JWT_EXPIRES_IN;
+  const algorithm = env.JWT_ALGORITHM as Algorithm;
+
+  const config: SignOptions = { algorithm, expiresIn, subject };
+  const token = jwt.sign(data, secretKey, config);
 
   return token;
 }

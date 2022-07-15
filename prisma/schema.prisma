@@ -20,7 +20,7 @@ model User {
 
 model Credential {
   id       Int    @id @default(autoincrement())
-  label    String @unique
+  label    String
   url      String
   userName String
   password String
