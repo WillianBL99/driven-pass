@@ -10,3 +10,11 @@ export async function create(req: Request, res: Response) {
 
   res.sendStatus(201);
 }
+
+export async function get(req: Request, res: Response) {
+  const { userId } = res.locals;
+  const credentialId = req.query.id as number | undefined;
+  const credentials = await credentialsServer.get(userId, credentialId);
+
+  res.send(credentials);
+}

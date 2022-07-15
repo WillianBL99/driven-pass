@@ -28,3 +28,13 @@ export async function create(credentialCreateData: CredentialCreateData) {
     password: hashedPass,
   });
 }
+
+export async function get(id: number | undefined){
+  if(id){
+    if(isNaN(id)){
+      throw "Ivalid id"
+    }
+
+    const credential = await credentialsRepository.getById(id );
+  }
+}
