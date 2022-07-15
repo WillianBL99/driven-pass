@@ -8,7 +8,7 @@ export async function create(credentialCreateData: CredentialCreateData) {
 }
 
 export async function getByUserId(id: number) {
-  return await prisma.user.findMany({
+  return await prisma.user.findUnique({
     select: {
       credentials: true,
     },

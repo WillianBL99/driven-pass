@@ -34,22 +34,43 @@ export async function get(
   queryCredentialId: number | undefined
 ) {
   if (queryCredentialId) {
-    const credentialId = Number(queryCredentialId);
-    if (isNaN(credentialId)) {
-      throw "Invalid Id";
-    }
-    const credential = await credentialsRepository.getById(credentialId);
-    if (!credential) {
-      throw new AppError("Not found", 404, "Not found");
-    }
-
-    
-    if (credential.userId !== userId) {
-      throw new AppError("Credential access danied", 401, "c a d");
-    }
-
-    return credential;
+    const credentialId = parseCredentialId(queryCredentialId);
+    return await findOneCredential(credentialId, userId);
   }
 
-  return await credentialsRepository.getByUserId(userId);
+  return await findManyCredentials(userId);
+}
+
+async function findOneCredential(credentialId: number, userId: number) {
+  const credential = await credentialsRepository.getById(credentialId);
+  if (!credential) {
+    throw new AppError("Not found", 404, "Not found");
+  }
+
+  if (credential.userId !== userId) {
+    throw new AppError("Credential access danied", 401, "c a d");
+  }
+  const password = descriptPassword(credential);
+  return { ...credential, password };
+}
+
+async function findManyCredentials(userId: number) {
+  const credentials = await credentialsRepository.getByUserId(userId);
+  return credentials?.credentials.map(credential => {
+    const password = descriptPassword(credential);
+    return {...credential, password};
+  })
+}
+
+function parseCredentialId(queryCredentialId: number) {
+  const credentialId = Number(queryCredentialId);
+  if (isNaN(credentialId)) {
+    throw "Invalid Id";
+  }
+
+  return credentialId;
+}
+
+function descriptPassword({ password }: { password: string }) {
+  return internalCryptr.decrypt(password);
 }
