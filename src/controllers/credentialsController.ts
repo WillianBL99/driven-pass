@@ -13,8 +13,9 @@ export async function create(req: Request, res: Response) {
 
 export async function get(req: Request, res: Response) {
   const { userId } = res.locals;
-  const credentialId = req.query.id as number | undefined;
-  const credentials = await credentialsServer.get(userId, credentialId);
+  const queryCredentialId = req.query.id as number | undefined;
+
+  const credentials = await credentialsServer.get(userId, queryCredentialId);
 
   res.send(credentials);
 }

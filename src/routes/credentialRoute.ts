@@ -13,7 +13,7 @@ credentialsRoute.post(
   validateSchema(credentialSchema),
   credentialsController.create
 );
-// credentialsRoute.get("/credential/?id", credentialsController);
+credentialsRoute.get("/credential", credentialsController.get);
 // credentialsRoute.delete("/credential/:id", credentialsController);
 
 export default credentialsRoute;

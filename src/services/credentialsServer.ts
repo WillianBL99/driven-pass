@@ -29,12 +29,27 @@ export async function create(credentialCreateData: CredentialCreateData) {
   });
 }
 
-export async function get(id: number | undefined){
-  if(id){
-    if(isNaN(id)){
-      throw "Ivalid id"
+export async function get(
+  userId: number,
+  queryCredentialId: number | undefined
+) {
+  if (queryCredentialId) {
+    const credentialId = Number(queryCredentialId);
+    if (isNaN(credentialId)) {
+      throw "Invalid Id";
+    }
+    const credential = await credentialsRepository.getById(credentialId);
+    if (!credential) {
+      throw new AppError("Not found", 404, "Not found");
     }
 
-    const credential = await credentialsRepository.getById(id );
+    
+    if (credential.userId !== userId) {
+      throw new AppError("Credential access danied", 401, "c a d");
+    }
+
+    return credential;
   }
+
+  return await credentialsRepository.getByUserId(userId);
 }
