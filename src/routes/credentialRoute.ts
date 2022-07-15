@@ -14,6 +14,6 @@ credentialsRoute.post(
   credentialsController.create
 );
 credentialsRoute.get("/credential", credentialsController.get);
-// credentialsRoute.delete("/credential/:id", credentialsController);
+credentialsRoute.delete("/credential/:id", credentialsController.remove);
 
 export default credentialsRoute;

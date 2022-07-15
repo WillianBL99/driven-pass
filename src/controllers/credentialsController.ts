@@ -19,3 +19,15 @@ export async function get(req: Request, res: Response) {
 
   res.send(credentials);
 }
+
+export async function remove(req: Request, res: Response) {
+  const { userId } = res.locals;
+  const credentialId = parseInt(req.params.id);
+
+  if (isNaN(credentialId)) {
+    throw "Invalid Id i";
+  }
+
+  await credentialsServer.remove(userId, credentialId);
+  res.sendStatus(204);
+}

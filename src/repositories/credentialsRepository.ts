@@ -26,3 +26,7 @@ export async function getByUserIdAndLable(userId: number, label: string) {
   });
   return credential;
 }
+
+export async function remove(id: number) {
+  return await prisma.credential.delete({ where: { id } });
+}
