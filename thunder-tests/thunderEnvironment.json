@@ -1,0 +1,41 @@
+[
+  {
+    "_id": "206179c1-4d8e-4217-812b-afdb2f2b3a16",
+    "name": "driven-pass",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2022-07-15T18:15:09.089Z",
+    "modified": "2022-07-15T20:00:33.496Z",
+    "data": [
+      {
+        "name": "apiUrl",
+        "value": "http://localhost:5000"
+      },
+      {
+        "name": "apiUrlL",
+        "value": "https://valex-cards.herokuapp.com"
+      },
+      {
+        "name": "email",
+        "value": "Feeney.84cc9ee0033d@apple.com"
+      },
+      {
+        "name": "password",
+        "value": "379287379287"
+      },
+      {
+        "name": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjU3OTEwMzc4LCJleHAiOjE2NTc5OTY3NzgsInN1YiI6IjYifQ.1Pmp7kNkt6pWbp7iVD-ekxtnnxdSA2npsgAe3GTS21E"
+      },
+      {
+        "name": "id",
+        "value": "1"
+      },
+      {
+        "name": "lable",
+        "value": "Fisher 5b9fbe574289"
+      }
+    ],
+    "envFile": "../../valex-api/.env"
+  }
+]
