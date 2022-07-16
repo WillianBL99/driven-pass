@@ -1,0 +1,623 @@
+[
+  {
+    "_id": "e76dbd3f-ab96-428b-8695-50672b7eeb0c",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "982d0e8d-c612-4fb0-8035-4024faf0d365",
+    "name": "sign-up-201",
+    "url": "{{apiUrl}}/sign-up",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T18:13:48.924Z",
+    "modified": "2022-07-15T18:13:48.924Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  },
+  {
+    "_id": "da2e2dc3-ce96-4702-a496-71663f2a95cd",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "1665bee7-fb35-4866-bf44-29a6b95c0cbc",
+    "name": "sign-in-200",
+    "url": "{{apiUrl}}/sign-in",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T18:13:48.925Z",
+    "modified": "2022-07-15T18:13:48.925Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "isjson",
+        "value": ""
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.token",
+        "action": "setto",
+        "value": "{{token}}"
+      }
+    ]
+  },
+  {
+    "_id": "b454dab6-65ea-4323-b705-32d876970704",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "a71b1630-03e3-4804-92c5-4c192dd8918d",
+    "name": "create-201",
+    "url": "{{apiUrl}}/credential",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T18:13:48.926Z",
+    "modified": "2022-07-15T19:47:53.937Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"label\": \"{{lable}}\",\n  \"userName\": \"{{#enum, Paulo, Fernanda, Joanna}} {{#enum, Lago, Barros, Santos, Pinheiro}}\",\n  \"url\": \"{{#enum, http, https}}://{{#enum, globo, gmail, sites}}.com/{{#guid}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  },
+  {
+    "_id": "8524f60c-aa34-4fe1-aac8-0202c73ebe52",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "2491ab4f-c45c-4258-a483-343c3a52c010",
+    "name": "SETENV",
+    "url": "{{apiUrl}}/test",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T18:13:48.927Z",
+    "modified": "2022-07-15T18:13:48.927Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{#email}}\",\n  \"password\": \"{{#number, 10000,999999}}{{#number, 10000,999999}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.password",
+        "action": "setto",
+        "value": "{{password}}"
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.email",
+        "action": "setto",
+        "value": "{{email}}"
+      }
+    ]
+  },
+  {
+    "_id": "9f8afe07-b346-445e-a277-a07e40b8a93c",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "52ea1936-0bc8-4d2f-8aac-226dc07062e9",
+    "name": "getOne-200",
+    "url": "{{apiUrl}}/credential?id={{id}}",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-07-15T18:13:48.928Z",
+    "modified": "2022-07-15T19:49:57.016Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [
+      {
+        "name": "id",
+        "value": "{{id}}",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  },
+  {
+    "_id": "4914b871-51f4-468f-b745-9d58d7da45a8",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "256e12cc-2ec4-4d38-8de3-5aa12faf9b0f",
+    "name": "delete-204",
+    "url": "{{apiUrl}}/credential/{{id}}",
+    "method": "DELETE",
+    "sortNum": 10000,
+    "created": "2022-07-15T18:13:48.929Z",
+    "modified": "2022-07-15T19:50:44.721Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  },
+  {
+    "_id": "36d9e32d-fbcf-4850-8325-54a72b8c68ea",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "982d0e8d-c612-4fb0-8035-4024faf0d365",
+    "name": "sign-up-409",
+    "url": "{{apiUrl}}/sign-up",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-07-15T18:13:48.930Z",
+    "modified": "2022-07-15T18:13:48.930Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "409"
+      }
+    ]
+  },
+  {
+    "_id": "b7b7754c-3174-4073-92bc-d16f60170b8a",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "1665bee7-fb35-4866-bf44-29a6b95c0cbc",
+    "name": "sign-in-200",
+    "url": "{{apiUrl}}/sign-in",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-07-15T18:13:48.931Z",
+    "modified": "2022-07-15T18:39:33.905Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "isjson",
+        "value": ""
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.token",
+        "action": "setto",
+        "value": "{{token}}"
+      }
+    ]
+  },
+  {
+    "_id": "8c86a1ea-c9c3-44f3-ab7c-472a545f4f56",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "52ea1936-0bc8-4d2f-8aac-226dc07062e9",
+    "name": "getMany-200 ",
+    "url": "{{apiUrl}}/credential",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-07-15T18:13:48.932Z",
+    "modified": "2022-07-15T18:40:31.072Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "15a8f5e5-619d-4e34-8d3e-d84371d05149",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "982d0e8d-c612-4fb0-8035-4024faf0d365",
+    "name": "sign-up-422",
+    "url": "{{apiUrl}}/sign-up",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2022-07-15T18:13:48.934Z",
+    "modified": "2022-07-15T18:13:48.934Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"546484\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "422"
+      }
+    ]
+  },
+  {
+    "_id": "fcce1469-e4a1-4278-ae4e-745f75d0b20b",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "1665bee7-fb35-4866-bf44-29a6b95c0cbc",
+    "name": "sign-in-422",
+    "url": "{{apiUrl}}/sign-in",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2022-07-15T18:13:48.935Z",
+    "modified": "2022-07-15T18:13:48.935Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"{{email}}\",\n  \"passwor\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "422"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "isjson",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "606435be-09b3-4e83-9bd5-fd662a05c336",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "1665bee7-fb35-4866-bf44-29a6b95c0cbc",
+    "name": "sign-in-401",
+    "url": "{{apiUrl}}/sign-in",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2022-07-15T18:13:48.936Z",
+    "modified": "2022-07-15T18:13:48.936Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"cc{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "401"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "isjson",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "0e2dc73a-0817-457e-9c8e-9965f16b5a04",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "c7a05c69-ccb5-47a3-832f-9d90fd2bbab2",
+    "name": "SETENV",
+    "url": "{{apiUrl}}/test",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T19:40:36.649Z",
+    "modified": "2022-07-15T19:54:13.928Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"id\": 1,\n  \"lable\": \"{{#string}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.id",
+        "action": "setto",
+        "value": "{{id}}"
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.lable",
+        "action": "setto",
+        "value": "{{lable}}"
+      }
+    ]
+  },
+  {
+    "_id": "78f5df26-2b1b-4260-a26c-6d93654620b8",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "a71b1630-03e3-4804-92c5-4c192dd8918d",
+    "name": "create-already-409",
+    "url": "{{apiUrl}}/credential",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-07-15T19:44:36.545Z",
+    "modified": "2022-07-15T19:48:51.260Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"label\": \"{{lable}}\",\n  \"userName\": \"{{#enum, Paulo, Fernanda, Joanna}} {{#enum, Lago, Barros, Santos, Pinheiro}}\",\n  \"url\": \"{{#enum, http, https}}://{{#enum, globo, gmail, sites}}.com/{{#guid}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "409"
+      }
+    ]
+  },
+  {
+    "_id": "ca891554-9744-4b6a-9177-82ff6e18c166",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "ff16edcc-a9d1-4647-86f7-ecc50958147e",
+    "name": "SETENV",
+    "url": "{{apiUrl}}/test",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T19:52:50.125Z",
+    "modified": "2022-07-15T19:54:26.065Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"id\": 1,\n  \"lable\": \"{{#string}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.id",
+        "action": "setto",
+        "value": "{{id}}"
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.lable",
+        "action": "setto",
+        "value": "{{lable}}"
+      }
+    ]
+  },
+  {
+    "_id": "46c60b65-d49d-408e-888a-5f04f734bc11",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "a102d69a-2693-4683-a527-0f5db10c5ba9",
+    "name": "create-201",
+    "url": "{{apiUrl}}/secure-note",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-07-15T19:52:50.126Z",
+    "modified": "2022-07-15T20:05:33.749Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"label\": \"{{lable}}\",\n  \"userName\": \"{{#enum, Paulo, Fernanda, Joanna}} {{#enum, Lago, Barros, Santos, Pinheiro}}\",\n  \"url\": \"{{#enum, http, https}}://{{#enum, globo, gmail, sites}}.com/{{#guid}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  },
+  {
+    "_id": "3ce56ee7-8870-4ce8-80ad-9983e2af3c09",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "a102d69a-2693-4683-a527-0f5db10c5ba9",
+    "name": "create-already-409",
+    "url": "{{apiUrl}}/credential",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-07-15T19:52:50.127Z",
+    "modified": "2022-07-15T19:52:50.125Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"label\": \"{{lable}}\",\n  \"userName\": \"{{#enum, Paulo, Fernanda, Joanna}} {{#enum, Lago, Barros, Santos, Pinheiro}}\",\n  \"url\": \"{{#enum, http, https}}://{{#enum, globo, gmail, sites}}.com/{{#guid}}\",\n  \"password\": \"{{password}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "409"
+      }
+    ]
+  },
+  {
+    "_id": "a759dae8-f6c6-4781-9070-9f5c8ebb03fb",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "894f3520-79f7-4056-a0d2-d898badbbc0e",
+    "name": "getOne-200",
+    "url": "{{apiUrl}}/credential?id={{id}}",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-07-15T19:52:50.129Z",
+    "modified": "2022-07-15T19:52:50.126Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [
+      {
+        "name": "id",
+        "value": "{{id}}",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  },
+  {
+    "_id": "3e75e0ad-16b8-48a9-9451-d48228e0e1a6",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "894f3520-79f7-4056-a0d2-d898badbbc0e",
+    "name": "getMany-200 ",
+    "url": "{{apiUrl}}/credential",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-07-15T19:52:50.130Z",
+    "modified": "2022-07-15T19:52:50.126Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "a0041fe1-1d2d-40f3-b2fa-2c3ad054f961",
+    "colId": "1296aec0-fd27-4a43-b594-faed66e9fcb5",
+    "containerId": "95c7c010-e8d7-4e1f-9535-9d41a607da41",
+    "name": "delete-204",
+    "url": "{{apiUrl}}/credential/{{id}}",
+    "method": "DELETE",
+    "sortNum": 10000,
+    "created": "2022-07-15T19:52:50.131Z",
+    "modified": "2022-07-15T19:52:50.126Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {{token}}"
+      }
+    ],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      }
+    ]
+  }
+]

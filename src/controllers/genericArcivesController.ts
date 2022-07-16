@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/* import { Request, Response } from "express";
 import { CredentialSchema } from "../schemas/credentialSchema.js";
 import * as credentialsServer from "../services/credentialsServer.js";
 
@@ -25,9 +25,10 @@ export async function remove(req: Request, res: Response) {
   const credentialId = parseInt(req.params.id);
 
   if (isNaN(credentialId)) {
-    throw "Invalid Id";
+    throw "Invalid Id i";
   }
 
   await credentialsServer.remove(userId, credentialId);
   res.sendStatus(204);
 }
+ */

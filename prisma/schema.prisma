@@ -16,6 +16,8 @@ model User {
   SecureNotes SecureNote[]
   Cards       Card[]
   WiFi        WiFi[]
+
+  @@map("users")
 }
 
 model Credential {
@@ -26,6 +28,8 @@ model Credential {
   password String
   userId   Int
   user     User   @relation(fields: [userId], references: [id])
+
+  @@map("credentials")
 }
 
 model SecureNote {
@@ -34,6 +38,8 @@ model SecureNote {
   bodyNote String @db.VarChar(1000)
   userId   Int
   user     User   @relation(fields: [userId], references: [id])
+
+  @@map("secureNotes")
 }
 
 enum CardTypes {
@@ -54,6 +60,8 @@ model Card {
   label          String
   userId         Int
   user           User      @relation(fields: [userId], references: [id])
+
+  @@map("cards")
 }
 
 model WiFi {
@@ -63,4 +71,6 @@ model WiFi {
   lable    String
   userId   Int
   user     User   @relation(fields: [userId], references: [id])
+
+  @@map("wiFi")
 }
