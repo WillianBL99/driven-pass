@@ -7,6 +7,6 @@ const wiFiRoute = Router();
 
 wiFiRoute.post("/wi-fi", validateSchema(wiFiSchema), wiFiController.create);
 wiFiRoute.get("/wi-fi", wiFiController.get);
-// wiFiRoute.delete("/wi-fi/:id", wiFiController);
+wiFiRoute.delete("/wi-fi/:id", wiFiController.remove);
 
 export default wiFiRoute;
