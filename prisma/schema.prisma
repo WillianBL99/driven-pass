@@ -12,9 +12,9 @@ model User {
   email       String       @unique
   password    String
   createdAt   DateTime     @default(now()) @db.Timestamptz(6)
+  Cards       Card[]
   credentials Credential[]
   SecureNotes SecureNote[]
-  Cards       Card[]
   WiFi        WiFi[]
 
   @@map("users")
@@ -39,26 +39,20 @@ model SecureNote {
   userId   Int
   user     User   @relation(fields: [userId], references: [id])
 
-  @@map("secureNotes")
-}
-
-enum CardTypes {
-  credit
-  debit
-  both
+  @@map("secure-notes")
 }
 
 model Card {
   id             Int       @id @default(autoincrement())
-  number         String    
+  number         String
   holderName     String
   secureCode     String
   expirationDate String
   isVirtual      Boolean   @default(false)
   password       String
   type           CardTypes
-  lable          String
   userId         Int
+  lable          String
   user           User      @relation(fields: [userId], references: [id])
 
   @@map("cards")
@@ -72,5 +66,11 @@ model WiFi {
   userId   Int
   user     User   @relation(fields: [userId], references: [id])
 
-  @@map("wiFi")
+  @@map("wi-fi")
+}
+
+enum CardTypes {
+  credit
+  debit
+  both
 }
