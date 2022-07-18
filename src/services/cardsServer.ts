@@ -1,21 +1,15 @@
-import AppError from "../config/error.js";
+import { Card } from "@prisma/client";
+import { DUPLICATE_LABLE, INVALID_ID, NOT_FOUND } from "../events/ErrosList.js";
 import * as cardsRepository from "../repositories/cardsRepository.js";
 import { CardCreateData } from "../repositories/cardsRepository.js";
 import { internalCryptr } from "../utils/encrypt.js";
-
-const DUPLICATE_LABLE = new AppError(
-  "Duplicate lable",
-  409,
-  "Lable already exists",
-  "Insert a different label"
-);
+import { checkAccess } from "./index.js";
 
 export async function create(cardCreateData: CardCreateData) {
   const { userId, number, lable, password, secureCode } = cardCreateData;
   const hashedPass = internalCryptr.encrypt(password);
   const hasedSecurCode = internalCryptr.encrypt(secureCode);
-
-  console.log({ userId, number, lable });
+  
   const findLabel = await cardsRepository.getByUserIdAndNumberAndLable({
     userId,
     number,
@@ -43,13 +37,13 @@ export async function get(userId: number, queryCardId: number | undefined) {
 }
 
 export async function remove(userId: number, cardId: number) {
-  await checkAccess(userId, cardId);
+  await checkCardAccess(userId, cardId);
 
   await cardsRepository.remove(cardId);
 }
 
 async function findOneCard(entityId: number, userId: number) {
-  const card = await checkAccess(userId, entityId);
+  const card = await checkCardAccess(userId, entityId);
   const password = descript(card.password);
   const secureCode = descript(card.secureCode);
   return { ...card, password, secureCode };
@@ -67,7 +61,7 @@ async function findManyCards(userId: number) {
 export function parseId(queryCardId: number) {
   const cardId = Number(queryCardId);
   if (isNaN(cardId)) {
-    throw "Invalid Id";
+    throw INVALID_ID;
   }
 
   return cardId;
@@ -77,15 +71,10 @@ function descript(hashedInfo: string) {
   return internalCryptr.decrypt(hashedInfo);
 }
 
-async function checkAccess(userId: number, id: number) {
-  const entity = await cardsRepository.getById(id);
-  if (!entity) {
-    throw new AppError("Not found", 404, "Not found");
+async function checkCardAccess(userId: number, cardId: number) {
+  const card = await cardsRepository.getById(cardId);
+  if( !card ) {
+    throw NOT_FOUND;
   }
-
-  if (entity.userId !== userId) {
-    throw new AppError("Card access danied", 401, "c a d");
-  }
-
-  return entity;
+  return checkAccess<Card>(card, "Card", userId)
 }

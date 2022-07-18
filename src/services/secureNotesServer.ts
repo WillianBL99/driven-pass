@@ -1,13 +1,8 @@
-import AppError from "../config/error.js";
+import { SecureNote } from "@prisma/client";
+import { DUPLICATE_LABLE, INVALID_ID } from "../events/ErrosList.js";
 import * as secureNotesRepository from "../repositories/secureNotesRepository.js";
 import { SecureNoteCreateData } from "../repositories/secureNotesRepository.js";
-
-const DUPLICATE_LABLE = new AppError(
-  "Duplicate lable",
-  409,
-  "Title already exists",
-  "Insert a different title"
-);
+import { checkAccess } from "./index.js";
 
 export async function create(secureNoteCreateData: SecureNoteCreateData) {
   const { title, userId } = secureNoteCreateData;
@@ -30,7 +25,7 @@ export async function get(
 ) {
   if (querySecureNoteId) {
     const secureNoteId = parseId(querySecureNoteId);
-    const secureNote = await checkAccess(userId, secureNoteId);
+    const secureNote = await checkSecureNotesAccess(userId, secureNoteId);
     return secureNote;
   }
 
@@ -38,7 +33,7 @@ export async function get(
 }
 
 export async function remove(userId: number, secureNoteId: number) {
-  await checkAccess(userId, secureNoteId);
+  await checkSecureNotesAccess(userId, secureNoteId);
 
   await secureNotesRepository.remove(secureNoteId);
 }
@@ -46,21 +41,13 @@ export async function remove(userId: number, secureNoteId: number) {
 export function parseId(queryId: number) {
   const id = Number(queryId);
   if (isNaN(id)) {
-    throw "Invalid Id";
+    throw INVALID_ID;
   }
 
   return id;
 }
 
-async function checkAccess(userId: number, secureNoteId: number) {
-  const entityData = await secureNotesRepository.getById(secureNoteId);
-  if (!entityData) {
-    throw new AppError("Not found", 404, "Not found");
-  }
-
-  if (entityData.userId !== userId) {
-    throw new AppError("Secure note access danied", 401, "c a d");
-  }
-
-  return entityData;
+async function checkSecureNotesAccess(userId: number, secureNoteId: number) {
+  const secureNote = await secureNotesRepository.getById(secureNoteId);
+  return checkAccess<SecureNote | null>(secureNote, "SecureNote", userId)
 }

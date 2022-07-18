@@ -1,14 +1,9 @@
-import AppError from "../config/error.js";
+import { Credential } from "@prisma/client";
+import { DUPLICATE_LABLE, INVALID_ID, NOT_FOUND } from "../events/ErrosList.js";
 import * as credentialsRepository from "../repositories/credentialsRepository.js";
 import { CredentialCreateData } from "../repositories/credentialsRepository.js";
 import { internalCryptr } from "../utils/encrypt.js";
-
-const DUPLICATE_LABLE = new AppError(
-  "Duplicate lable",
-  409,
-  "Lable already exists",
-  "Insert a different label"
-);
+import { checkAccess } from "./index.js";
 
 export async function create(credentialCreateData: CredentialCreateData) {
   const { password, label, userId } = credentialCreateData;
@@ -64,9 +59,8 @@ async function findManyCredentials(userId: number) {
 export function parseCredentialId(queryCredentialId: number) {
   const credentialId = Number(queryCredentialId);
   if (isNaN(credentialId)) {
-    throw "Invalid Id";
+    throw INVALID_ID;
   }
-
   return credentialId;
 }
 
@@ -77,12 +71,7 @@ function descriptPassword({ password }: { password: string }) {
 async function checkCredentialAccess(userId: number, credentialId: number) {
   const credential = await credentialsRepository.getById(credentialId);
   if (!credential) {
-    throw new AppError("Not found", 404, "Not found");
+    throw NOT_FOUND;
   }
-
-  if (credential.userId !== userId) {
-    throw new AppError("Credential access danied", 401, "c a d");
-  }
-
-  return credential;
+  return checkAccess<Credential>(credential, "Card", userId);
 }

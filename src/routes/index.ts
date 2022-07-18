@@ -4,7 +4,6 @@ import authRoute from "./authRoute.js";
 import cardsRoute from "./cardsRoute.js";
 import credentialsRoute from "./credentialRoute.js";
 import secureNotesRoute from "./secureNotesRoute.js";
-import testRoute from "./test.js";
 import wiFiRoute from "./wiFiRoute.js";
 
 const router = Router();
@@ -19,6 +18,8 @@ router.use(cardsRoute);
 router.use(wiFiRoute);
 
 //FIXME: Route for automatic tests
-router.use(testRoute);
+// router.post("/test", (req: Request, res: Response) => {
+//   res.send(req.body);
+// });
 
 export default router;
