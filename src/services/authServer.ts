@@ -1,23 +1,9 @@
 import jwt, { Algorithm, SignOptions } from "jsonwebtoken";
-import AppError from "../config/error.js";
 import "../config/setup.js";
+import { EMAIL_ALREADY_EXISTS, SIGN_IN_UNAUTHORIZED } from "../events/ErrosList.js";
 import * as userRepository from "../repositories/userRepository.js";
 import { internalBcrypt } from "../utils/encrypt.js";
 import { env } from "../utils/env.js";
-
-const SIGN_IN_UNAUTHORIZED = new AppError(
-  "Sign-in unauthorized",
-  401,
-  "Email or password are incorrect",
-  "Check and try again"
-);
-
-const EMAIL_ALREADY_EXISTS = new AppError(
-  "Sign-up conflict",
-  409,
-  "Email already registered",
-  "login or register another email"
-);
 
 interface MainProperties {
   email: string;

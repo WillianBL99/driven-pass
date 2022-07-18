@@ -1,7 +1,9 @@
-import AppError from "../config/error.js";
+import { WiFi } from "@prisma/client";
+import { INVALID_ID, NOT_FOUND } from "../events/ErrosList.js";
 import * as wiFiRepository from "../repositories/wiFiRepository.js";
 import { WiFiCreateData } from "../repositories/wiFiRepository.js";
 import { internalCryptr } from "../utils/encrypt.js";
+import { checkAccess } from "./index.js";
 
 export async function create(wiFiCreateData: WiFiCreateData) {
   const { password } = wiFiCreateData;
@@ -48,7 +50,7 @@ async function findManyWiFis(userId: number) {
 export function parseWiFiId(queryWiFiId: number) {
   const wiFiId = Number(queryWiFiId);
   if (isNaN(wiFiId)) {
-    throw "Invalid Id";
+    throw INVALID_ID;
   }
 
   return wiFiId;
@@ -60,13 +62,8 @@ function descriptPassword({ password }: { password: string }) {
 
 async function checkWiFiAccess(userId: number, wiFiId: number) {
   const wiFi = await wiFiRepository.getById(wiFiId);
-  if (!wiFi) {
-    throw new AppError("Not found", 404, "Not found");
+  if( !wiFi ) {
+    throw NOT_FOUND;
   }
-
-  if (wiFi.userId !== userId) {
-    throw new AppError("WiFi access danied", 401, "c a d");
-  }
-
-  return wiFi;
+  return checkAccess<WiFi>(wiFi, "Wi-fi", userId)
 }

@@ -1,14 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import AppError from "../config/error.js";
+import { EMPTY_TOKEN, INVALID_TOKEN } from "../events/ErrosList.js";
 import { env } from "../utils/env.js";
-
-const EMPTY_TOKEN = new AppError(
-  "Empty token",
-  401,
-  "Invalid token",
-  "Make sure you send the token correctly"
-);
 
 export async function tokenValidation(
   req: Request,
@@ -24,7 +17,7 @@ export async function tokenValidation(
     userId = id;
   } catch (error: any) {
     console.log(error);
-    throw new AppError("Invalid token", 403, "Invalid token", error);
+    throw INVALID_TOKEN;
   }
   
   res.locals.userId = userId;
