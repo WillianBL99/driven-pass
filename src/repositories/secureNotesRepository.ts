@@ -7,13 +7,8 @@ export async function create(secureNoteCreateData: SecureNoteCreateData) {
   await prisma.secureNote.create({ data: secureNoteCreateData });
 }
 
-export async function getByUserId(id: number) {
-  return await prisma.user.findUnique({
-    select: {
-      SecureNotes: true,
-    },
-    where: { id },
-  });
+export async function getByUserId(userId: number) {
+  return await prisma.secureNote.findMany({ where: { userId } });
 }
 
 export async function getById(id: number) {
