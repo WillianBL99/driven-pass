@@ -135,4 +135,4 @@ dist
 /.ts
 
 # Prisma
-/prisma/migrations
+#/prisma/migrations
