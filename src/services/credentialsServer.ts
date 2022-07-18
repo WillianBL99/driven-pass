@@ -55,7 +55,7 @@ async function findOneCredential(credentialId: number, userId: number) {
 
 async function findManyCredentials(userId: number) {
   const credentials = await credentialsRepository.getByUserId(userId);
-  return credentials?.credentials.map((credential) => {
+  return credentials.map((credential) => {
     const password = descriptPassword(credential);
     return { ...credential, password };
   });

@@ -6,7 +6,7 @@ import { cardSchemas } from "../schemas/cardSchema.js";
 const cardsRoute = Router();
 
 cardsRoute.post("/card", validateSchema(cardSchemas), cardsController.create);
-// cardsRoute.get("/card/?id", cardsController);
+cardsRoute.get("/card", cardsController.get);
 // cardsRoute.delete("/card/:id", cardsController);
 
 export default cardsRoute;
