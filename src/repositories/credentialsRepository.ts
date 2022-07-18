@@ -7,13 +7,8 @@ export async function create(credentialCreateData: CredentialCreateData) {
   await prisma.credential.create({ data: credentialCreateData });
 }
 
-export async function getByUserId(id: number) {
-  return await prisma.user.findUnique({
-    select: {
-      credentials: true,
-    },
-    where: { id },
-  });
+export async function getByUserId(userId: number) {
+  return await prisma.credential.findMany({ where: { userId } });
 }
 
 export async function getById(id: number) {
