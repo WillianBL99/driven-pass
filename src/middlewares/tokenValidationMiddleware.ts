@@ -26,6 +26,7 @@ export async function tokenValidation(
     console.log(error);
     throw new AppError("Invalid token", 403, "Invalid token", error);
   }
+  
   res.locals.userId = userId;
   next();
 }

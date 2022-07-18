@@ -15,6 +15,7 @@ export async function create(cardCreateData: CardCreateData) {
   const hashedPass = internalCryptr.encrypt(password);
   const hasedSecurCode = internalCryptr.encrypt(secureCode);
 
+  console.log({ userId, number, lable });
   const findLabel = await cardsRepository.getByUserIdAndNumberAndLable({
     userId,
     number,
@@ -56,7 +57,7 @@ async function findOneCard(entityId: number, userId: number) {
 
 async function findManyCards(userId: number) {
   const cards = await cardsRepository.getByUserId(userId);
-  return cards?.Cards.map((card) => {
+  return cards.map((card) => {
     const password = descript(card.password);
     const secureCode = descript(card.secureCode);
     return { ...card, password, secureCode };
