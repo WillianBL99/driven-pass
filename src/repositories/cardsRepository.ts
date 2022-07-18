@@ -8,20 +8,16 @@ export async function create(cardCreateData: CardCreateData) {
   await prisma.card.create({ data: cardCreateData });
 }
 
-export async function getByUserId(id: number) {
-  return await prisma.user.findUnique({
-    select: {
-      Cards: true,
-    },
-    where: { id },
-  });
+export async function getByUserId(userId: number) {
+  return await prisma.card.findMany({ where: { userId } });
 }
 
 export async function getByUserIdAndNumberAndLable(findSameCard: FindSameCard) {
   const { userId, number, lable } = findSameCard;
-  return await prisma.card.findFirst({
+  const [card] = await prisma.card.findMany({
     where: { userId, AND: { number, AND: { lable } } },
   });
+  return card;
 }
 
 export async function getById(id: number) {
