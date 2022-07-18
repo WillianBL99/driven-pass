@@ -7,6 +7,6 @@ const cardsRoute = Router();
 
 cardsRoute.post("/card", validateSchema(cardSchemas), cardsController.create);
 cardsRoute.get("/card", cardsController.get);
-// cardsRoute.delete("/card/:id", cardsController);
+cardsRoute.delete("/card/:id", cardsController.remove);
 
 export default cardsRoute;
