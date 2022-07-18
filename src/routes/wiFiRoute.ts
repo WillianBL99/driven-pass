@@ -6,7 +6,7 @@ import { wiFiSchema } from "../schemas/wiFiSchema.js";
 const wiFiRoute = Router();
 
 wiFiRoute.post("/wi-fi", validateSchema(wiFiSchema), wiFiController.create);
-// wiFiRoute.get("/wi-fi/?id", wiFiController);
+wiFiRoute.get("/wi-fi", wiFiController.get);
 // wiFiRoute.delete("/wi-fi/:id", wiFiController);
 
 export default wiFiRoute;
