@@ -1,4 +1,4 @@
-<!-- <p align="center">
+<p align="center">
   <a href="https://https://github.com/WillianBL99/valex-api">
     <img src="https://user-images.githubusercontent.com/65803142/178611095-2f5e8fbd-a23a-4ac8-8591-fffdf221f6e9.png" alt="readme-logo" width="180" >
   </a>
@@ -76,7 +76,7 @@ $ npm start
 - [Create a wi-fi](#---create-a-wi-fi)
 - [Search all wi-fi's](#---search-all-wi-fi's)
 - [Search a wi-fi](#---search-a-wi-fi)
-- [Delete a wi-fi](#---delete-a-credential) -->
+- [Delete a wi-fi](#---delete-a-credential)
 
 
 ## Authentication
@@ -149,6 +149,87 @@ $ npm start
   "Authorization": "Bearer ${token}"
 }
 ```
+
+
+### &nbsp; ‣ &nbsp; Search all credentials
+##### &nbsp; &nbsp; GET _`/credential`_
+
+
+### &nbsp; :page_facing_up: Request
+#### &nbsp; &nbsp; Body
+```json
+
+```
+
+#### &nbsp; &nbsp; Header
+```json
+{
+  "Authorization": "Bearer ${token}"
+}
+```
+
+### &nbsp; :arrow_down: Response
+```json
+[
+  {
+    "id": 2,
+    "label": "Boyle baa349754ce2",
+    "url": "https://sites.com/08337082-31ac-4e28-8a9c-b02c1aeb1c15",
+    "userName": "Paulo Santos",
+    "password": "112919112919",
+    "userId": 1
+  }
+]
+```
+
+
+### &nbsp; ‣ &nbsp; Search a credential
+##### &nbsp; &nbsp; GET _`/credential?id=1`_
+
+### &nbsp; :page_facing_up: Request
+#### &nbsp; &nbsp; Body
+```json
+
+```
+
+#### &nbsp; &nbsp; Header
+```json
+{
+  "Authorization": "Bearer ${token}"
+}
+```
+
+### &nbsp; :arrow_down: Response
+```json
+{
+    "id": 2,
+    "label": "Boyle baa349754ce2",
+    "url": "https://sites.com/08337082-31ac-4e28-8a9c-b02c1aeb1c15",
+    "userName": "Paulo Santos",
+    "password": "112919112919",
+    "userId": 1
+}
+```
+
+### &nbsp; ‣ &nbsp; Delete a credential
+##### &nbsp; &nbsp; DELETE _`/credential/:id`_
+
+### &nbsp; :page_facing_up: Request
+#### &nbsp; &nbsp; Body
+```json
+
+```
+
+#### &nbsp; &nbsp; Header
+```json
+{
+  "Authorization": "Bearer ${token}"
+}
+```
+
+
+---
+
 
 ### &nbsp; :arrow_down: Response
 | Status Code |      Description      |
